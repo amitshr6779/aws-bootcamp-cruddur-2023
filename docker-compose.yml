@@ -3,8 +3,13 @@ services:
   backend-flask:
     environment:
       FRONTEND_URL: "http://localhost:3000"
-      BACKEND_URL: "http://localhost:4567"      
+      BACKEND_URL: "http://localhost:4567"
+      OTEL_SERVICE_NAME: 'backend-flask'
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
+      OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}" 
+      OTEL_SERVICE_NAME: "${HONEYCOMB_SERVICE_NAME}" 
     build: ./backend-flask
+    #image: backend-flask:span_attribute
     ports:
       - "4567:4567"
     volumes:
